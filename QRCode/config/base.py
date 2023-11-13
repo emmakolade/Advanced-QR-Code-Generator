@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 import environ 
 import os 
@@ -19,7 +19,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 env = environ.Env()
 
 
-# Application definition
+SECRET_KEY= env("SECRET_KEY", default="EUnrJLKwm33xx8g1YQ9qP0QU9dy1S6nP54bs8YrBdHa6P8FF4o7HH32HosEJjq3V",)
+
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -28,14 +29,16 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangorestframework'
 ]
 THIRD_PARTY_APPS = [
-  
+  "corsheaders",
+  "",
 ]
-OTHER_APPS = [
-  
+APPS = [
+"authentication"  
 ]
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + OTHER_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -112,3 +115,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'authentication.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'JWT_ALGORITHM': 'HS256',
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
