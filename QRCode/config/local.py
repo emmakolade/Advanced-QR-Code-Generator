@@ -1,10 +1,11 @@
-from .base import * 
+from .base import *  # noqa: F403
 import logging
 
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = config("DJANGO_DEBUG", False)
 
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1",]
+# ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1",]
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
 
 
