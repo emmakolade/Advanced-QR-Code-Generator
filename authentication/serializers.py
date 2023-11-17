@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from .models import User, OTPUser
+from .models import User
 from django.utils.translation import gettext_lazy as _
 from utils.messages import ERROR
 
@@ -23,12 +23,10 @@ class RegisterSerializer(serializers.ModelSerializer):
     return user
   
 
-class OTPSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = OTPUser
-    fields = ('otp',)
 
 
+class OTPSerializer(serializers.Serializer):
+  otp = serializers.CharField()
 
 
 class LoginSerializer(serializers.Serializer):

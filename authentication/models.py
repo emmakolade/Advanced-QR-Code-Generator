@@ -33,5 +33,3 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
   def __str__(self):
     return self.email
 
-class OTPUser(models.Model):
-  otp = models.CharField(_('one time password'), blank=True, null=True, max_length=300)

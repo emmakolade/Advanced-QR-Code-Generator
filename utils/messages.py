@@ -1,3 +1,4 @@
+
 SUCCESS = {
   'ACCOUNT_CREATED': 'Your account has been created',
   'EMAIL_VERIFIED': 'Email verified',
@@ -11,5 +12,6 @@ ERROR = {
   'USER_ALREADY_VERIFIED': 'Account has been previously verified',
   'INVALID_OTP': 'Invalid OTP',
   'OTP_EXPIRED': 'OTP expired please request a new one',
-  'INVALID_CREDENTIALS':'Invalid credentials'
+  'INVALID_CREDENTIALS':'Invalid credentials',
+  'USER_NOT_FOUND': 'User not found',
 }
