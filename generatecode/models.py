@@ -12,11 +12,9 @@ class QRCode(BaseModel):
     message = models.TextField(null=True, blank=True)
 
     text = models.TextField(null=True, blank=True)
-
     phone_number = models.CharField(null=True, blank=True, max_length=64)
-
     whatsapp_number = models.CharField(null=True, blank=True, max_length=64)
-
+    
     ssid = models.CharField(
         null=True,
         blank=True, 
