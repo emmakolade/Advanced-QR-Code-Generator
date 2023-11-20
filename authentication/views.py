@@ -115,8 +115,8 @@ class ResendOTPView(generics.UpdateAPIView):
             hashed_otp = hashlib.sha256(otp.encode('utf-8')).hexdigest() 
             user.otp = hashed_otp
 
-            print("hashed_otp", hashed_otp)
-            print("otp", otp)
+            # print("hashed_otp", hashed_otp)
+            # print("otp", otp)
             user.otp_expiration_time = expiration_time
             user.save()
 

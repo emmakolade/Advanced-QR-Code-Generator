@@ -24,7 +24,8 @@ THIRD_PARTY_APPS = [
   "rest_framework",
 ]
 APPS = [
-"authentication"  
+"authentication",  
+"generatecode"
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + APPS
 SITE_ID = 1
