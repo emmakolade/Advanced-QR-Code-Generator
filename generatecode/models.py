@@ -4,7 +4,7 @@ from utils.models import BaseModel
 # Create your models here.
 class QRCode(BaseModel):
     link = models.URLField(null=False, blank=True)
-    qr_code = models.ImageField(null=True, blank=True, upload_to='/qr_codes/images')
+    qr_code_image = models.ImageField(null=True, blank=True, upload_to='/qr_codes/images')
     logo = models.ImageField(null=True, blank=True, upload_to='/qr_codes/images')
 
     email = models.EmailField(null=True, blank=True)
@@ -27,7 +27,7 @@ class QRCode(BaseModel):
         max_length=300, 
         verbose_name= 'WifiPassword'
     )
-    security = models.CharField(
+    network_type = models.CharField(
         null=True,
         blank=True, 
         max_length=300, 
