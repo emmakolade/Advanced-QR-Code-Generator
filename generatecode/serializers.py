@@ -6,7 +6,7 @@ class QRcodeSerializer(serializers.ModelSerializer):
         model = QRCode
         fields = [
             'link',
-            'qr_code', 
+            'qr_code_image', 
             'logo',
             'email',
             'subject', 
@@ -16,7 +16,7 @@ class QRcodeSerializer(serializers.ModelSerializer):
             'whatsapp_number', 
             'ssid', 
             'password', 
-            'security',
+            'network_type',
             'created_at',
         ]
         

@@ -4,8 +4,8 @@ from utils.models import BaseModel
 # Create your models here.
 class QRCode(BaseModel):
     link = models.URLField(null=False, blank=True)
-    qr_code_image = models.ImageField(null=True, blank=True, upload_to='/qr_codes/images')
-    logo = models.ImageField(null=True, blank=True, upload_to='/qr_codes/images')
+    qr_code_image = models.ImageField(null=True, blank=True, upload_to='qr_codes/images')
+    logo = models.ImageField(null=True, blank=True, upload_to='qr_codes/images')
 
     email = models.EmailField(null=True, blank=True)
     subject = models.TextField(null=True, blank=True)
