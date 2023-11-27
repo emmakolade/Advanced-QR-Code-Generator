@@ -13,23 +13,6 @@ class QRViewSet(viewsets.ModelViewSet):
     queryset  = QRCode.objects.all()
     serializer_class = QRcodeSerializer
 
-    # @action(detail=False, methods=['post'])
-    # def generate_link_qr(self, request):
-        
-    #     link = request.data.get('link')
-    #     qr_code = make_qr(link)
-
-    #     os.makedirs('qr_codes/images', exist_ok=True)
-
-    #     image_path = os.path.join('qr_codes/images', f'qr_code_{link}.png')
-    #     qr_code.save(image_path, scale=10)
-
-    #     create_qr = QRCode.objects.create(link=link, qr_code_image=image_path )
-
-    #     serializer = self.get_serializer(create_qr)
-
-    #     return Response(serializer.data)
-       
     @action(detail=False, methods=['post'])
     def generate_link_qr(self, request):
         try:
@@ -108,21 +91,25 @@ class QRViewSet(viewsets.ModelViewSet):
     def generate_phone_qr(self, request):
         try:
             phone_number = request.data.get('phone_number')
+            # TODO: add country code, check if phone number and country code is valid
             
             encode = f"tel:{phone_number}"
             qr_code = make_qr(encode)
-            qr_code_image = qr_code.save('qr_codes/images/qr_code_link.png')
+            os.makedirs('qr_codes/images', exist_ok=True)
 
-            create_qr = QRCode.objects.create(phone_number=phone_number, qr_code_image=qr_code_image)
+            image_path = os.path.join('qr_codes/images', 'qr_code_phone.png')
+            qr_code.save(image_path, scale=10)
+
+            create_qr = QRCode.objects.create(phone_number=phone_number, qr_code_image=image_path)
 
             serializer = self.get_serializer(create_qr)
             
-            user = request.user.id
+            # user = request.user.id
 
-            logger.info(f"QR code phone generated {user.email}")
+            logger.info("QR code phone generated")
             return Response(serializer.data)
         except Exception as e:
-            logger.error(f"Error generating phone QR code {user.email}: {str(e)}")
+            logger.error(f"Error generating phone QR code: {str(e)}")
             return Response({'error': 'An error occurred while generating QR code.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
@@ -133,17 +120,20 @@ class QRViewSet(viewsets.ModelViewSet):
             
             encode = f"https://wa.me/{whatsapp_number}"
             qr_code = make_qr(encode)
-            qr_code_image = qr_code.save('qr_codes/images/qr_code_link.png')
+            os.makedirs('qr_codes/images', exist_ok=True)
 
-            create_qr = QRCode.objects.create(whatsapp_number=whatsapp_number, qr_code_image=qr_code_image)
+            image_path = os.path.join('qr_codes/images', 'qr_code_whatsapp.png')
+            qr_code.save(image_path, scale=10)
+
+            create_qr = QRCode.objects.create(whatsapp_number=whatsapp_number, qr_code_image=image_path)
 
             serializer = self.get_serializer(create_qr)
-            user = request.user.id
+            # user = request.user.id
 
-            logger.info(f"QR code whatsapp generated {user.email}")
+            logger.info("QR code whatsapp generated ")
             return Response(serializer.data)
         except Exception as e:
-            logger.error(f"Error generating whatsapp QR code {user.email}: {str(e)}")
+            logger.error(f"Error generating whatsapp QR code : {str(e)}")
             return Response({'error': 'An error occurred while generating QR code.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     
@@ -159,21 +149,24 @@ class QRViewSet(viewsets.ModelViewSet):
             
             encode = f"WIFI:T:{network_type};S:{ssid};P:{password};;"
             qr_code = make_qr(encode)
-            qr_code_image = qr_code.save('qr_codes/images/qr_code_link.png')
+            os.makedirs('qr_codes/images', exist_ok=True)
+
+            image_path = os.path.join('qr_codes/images', 'qr_code_phone.png')
+            qr_code.save(image_path, scale=10)
 
             create_qr = QRCode.objects.create(
                 ssid=ssid,
                 network_type=network_type,
                 password=password,            
-                qr_code_image=qr_code_image)
+                qr_code_image=image_path)
 
             serializer = self.get_serializer(create_qr)
-            user = request.user.id
+            # user = request.user.id
 
-            logger.info(f"QR code wifi generated {user.email}")
+            logger.info("QR code wifi generated ")
             return Response(serializer.data)
         except Exception as e:
-            logger.error(f"Error generating wifi QR code {user.email}: {str(e)}")
+            logger.error(f"Error generating wifi QR code : {str(e)}")
             return Response({'error': 'An error occurred while generating QR code.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
   
